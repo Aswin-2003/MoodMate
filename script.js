@@ -9,7 +9,7 @@ window.onload = () => {
   moods.forEach(addMoodToList);
 };
 
-// Save mood when form is submitted
+// Handle form submit
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -26,12 +26,10 @@ form.addEventListener('submit', (e) => {
 
   addMoodToList(mood);
 
-  // Save to localStorage
   const moods = JSON.parse(localStorage.getItem('moods')) || [];
   moods.push(mood);
   localStorage.setItem('moods', JSON.stringify(moods));
 
-  // Clear form
   noteInput.value = '';
 });
 
@@ -48,22 +46,21 @@ function getMoodKeyword(emoji) {
   }
 }
 
-// Add mood to list with filter tag
+// Add mood to UI
 function addMoodToList(mood) {
   const li = document.createElement('li');
   li.className = 'mood-item';
-  li.setAttribute('data-mood', mood.moodKeyword); // used for filtering
+  li.setAttribute('data-mood', mood.moodKeyword);
   li.textContent = `${mood.date} — ${mood.emoji} ${mood.note}`;
-  moodList.prepend(li); // latest on top
+  moodList.prepend(li);
 }
 
 // Filter moods
-function filterMood(moodType) {
+function filterMood(type) {
   const items = document.querySelectorAll('.mood-item');
-
   items.forEach(item => {
     const itemMood = item.getAttribute('data-mood');
-    if (moodType === 'all' || itemMood === moodType) {
+    if (type === 'all' || itemMood === type) {
       item.style.display = 'block';
     } else {
       item.style.display = 'none';
