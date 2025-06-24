@@ -13,9 +13,14 @@ window.onload = () => {
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
+  const emoji = emojiInput.value;
+  const note = noteInput.value;
+  const moodKeyword = getMoodKeyword(emoji);
+
   const mood = {
-    emoji: emojiInput.value,
-    note: noteInput.value,
+    emoji,
+    note,
+    moodKeyword,
     date: new Date().toLocaleString()
   };
 
@@ -30,25 +35,38 @@ form.addEventListener('submit', (e) => {
   noteInput.value = '';
 });
 
-// Add a mood item to the list
+// Convert emoji to mood keyword
+function getMoodKeyword(emoji) {
+  switch (emoji) {
+    case '😊': return 'happy';
+    case '😔': return 'sad';
+    case '😠': return 'angry';
+    case '😨': return 'anxious';
+    case '😌': return 'calm';
+    case '🥰': return 'loved';
+    default: return 'unknown';
+  }
+}
+
+// Add mood to list with filter tag
 function addMoodToList(mood) {
   const li = document.createElement('li');
   li.className = 'mood-item';
-  li.setAttribute('data-mood', mood.note.toLowerCase());  // Filter-ready attribute
+  li.setAttribute('data-mood', mood.moodKeyword); // used for filtering
   li.textContent = `${mood.date} — ${mood.emoji} ${mood.note}`;
   moodList.prepend(li); // latest on top
 }
 
-// Filter moods (optional feature, to add later)
-function filterMood(mood) {
-  const items = document.querySelectorAll(".mood-item");
+// Filter moods
+function filterMood(moodType) {
+  const items = document.querySelectorAll('.mood-item');
 
   items.forEach(item => {
-    const itemMood = item.getAttribute("data-mood");
-    if (mood === "all" || itemMood === mood) {
-      item.style.display = "block";
+    const itemMood = item.getAttribute('data-mood');
+    if (moodType === 'all' || itemMood === moodType) {
+      item.style.display = 'block';
     } else {
-      item.style.display = "none";
+      item.style.display = 'none';
     }
   });
 }
