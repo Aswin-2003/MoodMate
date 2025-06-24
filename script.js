@@ -3,24 +3,19 @@ const emojiInput = document.getElementById('emoji');
 const noteInput = document.getElementById('note');
 const moodList = document.getElementById('mood-list');
 
-// Load saved moods from localStorage
+// Load saved moods from localStorage on page load
 window.onload = () => {
   const moods = JSON.parse(localStorage.getItem('moods')) || [];
   moods.forEach(addMoodToList);
 };
 
-// Handle form submit
+// Save new mood entry
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const emoji = emojiInput.value;
-  const note = noteInput.value;
-  const moodKeyword = getMoodKeyword(emoji);
-
   const mood = {
-    emoji,
-    note,
-    moodKeyword,
+    emoji: emojiInput.value,
+    note: noteInput.value,
     date: new Date().toLocaleString()
   };
 
@@ -33,35 +28,22 @@ form.addEventListener('submit', (e) => {
   noteInput.value = '';
 });
 
-// Convert emoji to mood keyword
-function getMoodKeyword(emoji) {
-  switch (emoji) {
-    case '😊': return 'happy';
-    case '😔': return 'sad';
-    case '😠': return 'angry';
-    case '😨': return 'anxious';
-    case '😌': return 'calm';
-    case '🥰': return 'loved';
-    default: return 'unknown';
-  }
-}
-
-// Add mood to UI
+// Add mood to list
 function addMoodToList(mood) {
   const li = document.createElement('li');
-  li.className = 'mood-item';
-  li.setAttribute('data-mood', mood.moodKeyword);
   li.textContent = `${mood.date} — ${mood.emoji} ${mood.note}`;
-  moodList.prepend(li);
+  li.classList.add('mood-item');
+  li.setAttribute('data-mood', mood.emoji);
+  moodList.prepend(li); // latest on top
 }
 
-// Filter moods
+// Filter moods by emoji type
 function filterMood(type) {
   const items = document.querySelectorAll('.mood-item');
   items.forEach(item => {
     const itemMood = item.getAttribute('data-mood');
     if (type === 'all' || itemMood === type) {
-      item.style.display = 'block';
+      item.style.display = 'list-item';
     } else {
       item.style.display = 'none';
     }
