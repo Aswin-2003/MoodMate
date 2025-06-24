@@ -18,6 +18,19 @@ form.addEventListener('submit', (e) => {
     note: noteInput.value,
     date: new Date().toLocaleString()
   };
+  function filterMood(mood) {
+  const items = document.querySelectorAll(".mood-item");
+
+  items.forEach(item => {
+    const itemMood = item.getAttribute("data-mood");
+    if (mood === "all" || itemMood === mood) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
+}
+
 
   addMoodToList(mood);
 
