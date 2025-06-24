@@ -42,6 +42,8 @@ form.addEventListener('submit', (e) => {
   // Clear form
   noteInput.value = '';
 });
+moodDiv.setAttribute("data-mood", moodText.toLowerCase());
+
 
 function addMoodToList(mood) {
   const li = document.createElement('li');
