@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MoodMate</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>MoodMate 🌈</h1>
+
+    <form id="mood-form">
+      <label for="emoji">Your Mood:</label>
+      <select id="emoji">
+        <option value="😊">😊 Happy</option>
+        <option value="😔">😔 Sad</option>
+        <option value="😠">😠 Angry</option>
+        <option value="😨">😨 Anxious</option>
+        <option value="😌">😌 Calm</option>
+        <option value="🥰">🥰 Loved</option>
+      </select>
+
+      <label for="note">Say something about it:</label>
+      <textarea id="note" rows="4" placeholder="Write your thoughts..."></textarea>
+
+      <button type="submit">Save Mood</button>
+    </form>
+
+    <h2>Previous Entries</h2>
+    <ul id="mood-list"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
