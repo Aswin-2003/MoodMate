@@ -24,6 +24,25 @@ form {
   flex-direction: column;
   gap: 10px;
 }
+.filter-buttons {
+  margin: 15px 0;
+  text-align: center;
+}
+
+.filter-buttons button {
+  padding: 8px 15px;
+  margin: 5px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filter-buttons button:hover {
+  background-color: #45a049;
+}
+
 
 @media (max-width: 600px) {
   body {
